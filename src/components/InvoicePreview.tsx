@@ -7,7 +7,7 @@ import html2pdf from 'html2pdf.js';
 const InvoicePreview: React.FC = () => {
   const { invoice, resetInvoice } = useInvoice();
   const invoiceRef = useRef<HTMLDivElement>(null);
-  
+
   const handleDownloadPDF = () => {
     const element = invoiceRef.current;
     if (!element) return;
@@ -22,33 +22,27 @@ const InvoicePreview: React.FC = () => {
 
     html2pdf().set(opt).from(element).save();
   };
-  
+
   const handleGenerateNew = () => {
     if (confirm('Are you sure you want to create a new invoice? This will reset all current data.')) {
       resetInvoice();
     }
   };
-  
+
   return (
     <div className="space-y-4">
       <div className="bg-white rounded-lg shadow-md p-6" ref={invoiceRef}>
         {/* Invoice Header */}
         <div className="flex justify-between items-start mb-8">
           {/* Logo */}
-          <div className="logo-container max-w-[150px] max-h-[150px]">
-            {invoice.logoUrl ? (
-              <img 
-                src={invoice.logoUrl} 
-                alt="Company Logo" 
-                className="max-w-full max-h-full object-contain" 
-              />
-            ) : (
-              <div className="w-[120px] h-[60px] bg-gray-100 flex items-center justify-center rounded">
-                <span className="text-gray-400 text-xs">Your Logo</span>
-              </div>
-            )}
+          <div className="logo-container w-28 h-16">
+          <img
+            src={invoice.logoUrl || '/src/images/noblefit-logo.jpg'}
+            alt="Company Logo"
+            className="max-w-full max-h-full object-contain"
+          />
           </div>
-          
+
           {/* Invoice Info */}
           <div className="text-right">
             <div className="text-2xl font-bold text-black mb-1">
@@ -59,7 +53,7 @@ const InvoicePreview: React.FC = () => {
             </div>
           </div>
         </div>
-        
+
         {/* Client & Billing Information */}
         <div className="mb-8">
           <h3 className="font-bold text-gray-700 border-b pb-2 mb-2">Bill To</h3>
@@ -70,7 +64,7 @@ const InvoicePreview: React.FC = () => {
             <p>{invoice.clientInfo.address || 'Client Address'}</p>
           </div>
         </div>
-        
+
         {/* Products Table */}
         <div className="mb-8">
           <table className="w-full mb-4">
@@ -101,7 +95,7 @@ const InvoicePreview: React.FC = () => {
               ))}
             </tbody>
           </table>
-          
+
           {/* Totals */}
           <div className="w-full md:w-64 ml-auto">
             <div className="flex justify-between py-2">
@@ -118,13 +112,13 @@ const InvoicePreview: React.FC = () => {
             </div>
           </div>
         </div>
-        
+
         {/* Footer Notes */}
         <div className="text-sm text-gray-500 border-t pt-4">
           <p className="mb-1">Thank you for your business!</p>
         </div>
       </div>
-      
+
       {/* Actions */}
       <div className="flex flex-col sm:flex-row gap-3">
         <button
@@ -135,7 +129,7 @@ const InvoicePreview: React.FC = () => {
           <Download size={18} className="mr-2" />
           Download PDF
         </button>
-        
+
         <button
           type="button"
           onClick={handleGenerateNew}
