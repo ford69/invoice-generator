@@ -3,6 +3,7 @@ import { useInvoice } from '../context/InvoiceContext';
 import { formatCurrency, formatDate } from '../utils/invoiceUtils';
 import { Download } from 'lucide-react';
 import html2pdf from 'html2pdf.js';
+import logo from '../images/noblefit-logo.jpg';
 
 const InvoicePreview: React.FC = () => {
   const { invoice, resetInvoice } = useInvoice();
@@ -37,7 +38,7 @@ const InvoicePreview: React.FC = () => {
           {/* Logo */}
           <div className="logo-container w-28 h-16">
           <img
-            src={invoice.logoUrl || '/src/images/noblefit-logo.jpg'}
+            src={logo}
             alt="Company Logo"
             className="max-w-full max-h-full object-contain"
           />
